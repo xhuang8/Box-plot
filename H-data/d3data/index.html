@@ -4,10 +4,136 @@
     <meta charset="UTF-8">
     <title>D3 data</title>
 
+    <!--load d3.js-->
     <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script src="box.js"></script>
+
+    <script src="d3.v5.min.js"></script>
 </head>
-/
+
+
+
 <body>
+
+<div id="my_box">
+    <svg width="800" height="400">
+        <g transform="translate(40,10)">
+        </g>
+    </svg>
+
+
+</div>
+
+
+<script>
+
+    //set the dimensions and margins of the graph
+    var margin  = {top: 30, right: 50, bottom: 70, left: 50};
+    var  width = 800 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+
+    //append the svg object to the body of the page
+    var svg = d3.select("#my_box")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    //read and parse data for csv file
+    //to draw the box, we have to use the some information which like quartiles, median, inter quartile range min and max
+    d3.csv("AAPL.csv", function(data) {
+        var sums = d3.nest()
+            .key(function (d) {
+                return d.date;
+            })
+            .rollup(function (d) {
+                q1 = d3.quantile(d.map(function (g) {
+                    return g.open;
+                }).sort(d3.ascending),.25)
+
+                median = d3.quantile(d.map(function (g) {
+                    return g.open;
+                }).sort(d3.ascending),.5)
+
+                q3 = d3.quantile(d.map(function (g) {
+                    return g.open;
+                }).sort(d3.ascending),.75)
+
+                interQuantileRange = q3 - q1
+
+                min = q1 - 1.5 * interQuantileRange
+
+                max = q3 + 1.5 * interQuantileRange
+
+                return({q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max})
+            })
+            .entries(data)
+
+
+    //show x axis
+        var x = d3.scaleBand()
+            .range([0, width])
+            .domain(["date"])
+            .paddingInner(1)
+            .paddingOuter(.5)
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+
+
+    //show y axis
+        var y = d3.scaleLinear()
+            .domain([0,100])
+            .range([height,0])
+        svg.append("g").call(d3.axisLeft(y))
+
+    //show the main vertical line
+    svg
+        .selectAll("vertLines")
+        .data(sums)
+        .enter()
+        .append("line")
+        .attr("x1", function (d) {
+            return(x(d.key))
+        })
+        .attr("x2", function(d){return(x(d.key))})
+        .attr("y1", function(d){return(y(d.value.min))})
+        .attr("y2", function(d){return(y(d.value.max))})
+        .attr("stroke", "black")
+        .style("width", 40)
+
+    //
+
+        var boxWidth = 100
+        svg
+            .selectAll("boxes")
+            .data(sumstat)
+            .enter()
+            .append("rect")
+            .attr("x", function(d){return(x(d.key)-boxWidth/2)})
+            .attr("y", function(d){return(y(d.value.q3))})
+            .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
+            .attr("width", boxWidth )
+            .attr("stroke", "black")
+            .style("fill", "#69b3a2")
+
+    //
+        svg
+            .selectAll("medianLines")
+            .data(sumstat)
+            .enter()
+            .append("line")
+            .attr("x1", function(d){return(x(d.key)-boxWidth/2) })
+            .attr("x2", function(d){return(x(d.key)+boxWidth/2) })
+            .attr("y1", function(d){return(y(d.value.median))})
+            .attr("y2", function(d){return(y(d.value.median))})
+            .attr("stroke", "black")
+            .style("width", 80)
+    })
+
+</script>
 
 </body>
 </html>
