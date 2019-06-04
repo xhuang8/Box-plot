@@ -80,24 +80,19 @@
     //read and parse data for csv file
     //to draw the box, we have to use the some information which like quartiles, median, inter quartile range min and max
     d3.csv("data.csv", function (error, csv) {
-
         if(error) {
             console.log(error);
         }
         console.log(csv);
-
         var data = [];
-
-
         //csv is kind like array, using the array with data [i][2] to match with csv file
-         data[1] = [];
-         data[2] = [];
-         data[3] = [];
-         data[4] = [];
-         data[5] = [];
-         data[6] = [];
+        data[1] = [];
+        data[2] = [];
+        data[3] = [];
+        data[4] = [];
+        data[5] = [];
+        data[6] = [];
         //it shows the data in the ith column in the csv file
-
         //showing the header of the csv file
         data[1][0] = "open";
         data[2][0] = "high";
@@ -105,14 +100,12 @@
         data[4][0] = "close";
         data[5][0] = "adj_close";
         data[6][0] = "volume";
-
         data[1][1] = [];
         data[2][1] = [];
         data[3][1] = [];
         data[4][1] = [];
         data[5][1] = [];
         data[6][1] = [];
-
         csv.forEach(function (x) {
             var v1 = Math.floor(x.open),
                 v2 = Math.floor(x.high),
@@ -120,108 +113,104 @@
                 v4 = Math.floor(x.close),
                 v5 = Math.floor(x.adj_close),
                 v6 = Math.floor(x.volume);
-
             arr = [v1, v2, v3, v4, v5, v6]
             var rowMax = Math.max(v1, v2, v3, v4, v5, v6);
             var rowMin = Math.min(v1, v2, v3, v4, v5, v6);
-
             data[1][1].push(v1);
             data[2][1].push(v2);
             data[3][1].push(v3);
             data[4][1].push(v4);
             data[5][1].push(v5);
             data[6][1].push(v6);
-
             if(rowMax > max)
                 max = rowMax;
             if(rowMin < min)
                 min = rowMin;
-
             //max values
             max = 10000000;
             console.log(data);
         });
 
-        //initial the box plot
-        var chart = d3.box()
-            .whiskers(iqr(1.5))
-            .height(height)
-            .domain([min, max])
-            .showLabels(labels);
+            //initial the box plot
+            var chart = d3.box()
+                .whiskers(iqr(1.5))
+                .height(height)
+                .domain([min, max])
+                .showLabels(labels);
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .attr("class", "box")
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-
-        //define x-axis
-        var x = d3.scaleOrdinal()
-            .domain(data.map(function (d) {
-                return d[1]
-            }))
-            .rangeRound([0, width]);
-
-        var xAxis = d3.axisBottom()
-            .scale(x);
+            var svg = d3.select("body").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("class", "box")
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
 
-        //define y-axis
-        var y = d3.scaleLinear()
-            .domain([min, max])
-            .range([height + margin.top, 0 + margin.top]);
+            //define x-axis
+            var x = d3.scaleOrdinal()
+                .domain(data.map(function (d) {
+                    return d[1]
+                }))
+                .rangeRound([0, width]);
 
-        var yAxis = d3.axisLeft()
-            .scale(y);
+            var xAxis = d3.axisBottom()
+                .scale(x);
 
 
 
-        //draw the box plots
-        svg.selectAll(".box")
-            .data(data)
-            .enter().append("g")
-            .attr("transform", function(d) { return "translate(" +  x(d[0])  + "," + margin.top + ")"; } )
-            .call(chart.width(x.bandwidth()));
+            //define y-axis
+            var y = d3.scaleLinear()
+                .domain([min, max])
+                .range([height + margin.top, 0 + margin.top]);
 
-        //adding the title for box-plot
-        svg.append("text")
-            .attr("x", (width/2))
-            .attr("y", 0 + (margin.top/2))
-            .attr("text-anchor", "middle")
-            .style("font-size", "18px")
-            .text("Data set for trading in 2019");
+            var yAxis = d3.axisLeft()
+                .scale(y);
 
-        //draw y axis
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", -35)
-            .attr("x", -28)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .style("font-size", "13px")
-            .style("font-weight", "bold")
-            .text("Response Time [Minutes]");
 
-        //draw x axis
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
-            .call(xAxis)
-            .append("text")             // text label for the x axis
-            .attr("x", (width / 2) )
-            .attr("y",  40 )
-            .attr("dy", ".71em")
-            .style("text-anchor", "middle")
-            .style("font-size", "13px")
-            .style("font-weight", "bold")
-            .text("Call Type");
+
+            //draw the box plots
+            svg.selectAll(".box")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d) { return "translate(" +  x(d[0])  + "," + margin.top + ")"; } )
+                .call(chart.width(x.bandwidth()));
+
+            //adding the title for box-plot
+            svg.append("text")
+                .attr("x", (width/2))
+                .attr("y", 0 + (margin.top/2))
+                .attr("text-anchor", "middle")
+                .style("font-size", "18px")
+                .text("Data set for trading in 2019");
+
+            //draw y axis
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -35)
+                .attr("x", -28)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .style("font-size", "13px")
+                .style("font-weight", "bold")
+                .text("Response Time [Minutes]");
+
+            //draw x axis
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
+                .call(xAxis)
+                .append("text")             // text label for the x axis
+                .attr("x", (width / 2) )
+                .attr("y",  40 )
+                .attr("dy", ".71em")
+                .style("text-anchor", "middle")
+                .style("font-size", "13px")
+                .style("font-weight", "bold")
+                .text("Call Type");
     });
 
     function iqr(k) {
