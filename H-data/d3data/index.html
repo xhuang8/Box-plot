@@ -2,16 +2,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
+
+    <!--load d3.js-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="box.js"></script>
+
+    <!-- title for d3 -->
     <title>Data set for trading</title>
 
     <!--css style-->
     <style>
 
+        /* body attributes */
         body {
+            margin: 0;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
 
-        <!-- -->
+        /* text attributes */
+        text {
+            font-family: "Helvetica Neue";
+            color: black;
+            font-size: 1.2px;
+
+        }
+
+        /* box plot */
         .box {
             font: 10px sans-serif;
         }
@@ -33,7 +54,7 @@
             stroke: black;
         }
 
-        <!--  -->
+        /* axis attributes */
         .axis {
             font: 12px "Helvetica Neue";
         }
@@ -45,13 +66,15 @@
             shape-rendering: crispEdges;
         }
 
-        .x.axis path {
+        .x.axis path,
+        .x.axis line {
             fill: none;
             stroke: black;
             shape-rendering: crispEdges;
         }
 
-        .y.axis path {
+        .y.axis path,
+        .y.axis line {
             fill: none;
             stroke: black;
             shape-rendering: crispEdges;
@@ -61,22 +84,26 @@
 
 
 <body>
-<!--load d3.js-->
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="box.js"></script>
-
-
+<div id="data"></div>
 <script>
 
-    var labels = true;
+    //set the size and color for the chart
+    var totalWidth = 800;
+    var totalHeight = 500;
+    // var labels = true;
 
     //set the dimensions and margins of the graph
-    var margin  = {top: 30, right: 50, bottom: 112, left: 50},
-        width = 800 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    var margin  = {top: 40, right: 30, bottom: 30, left: 50},
+        width = totalWidth - margin.left - margin.right,
+        height = totalHeight - margin.top - margin.bottom;
 
-    var min = Infinity,
-        max = -Infinity;
+    var barWidth = 40;
+    var boxPlotColor = "blue";
+    var medianLineColor = "black";
+    var axisColor = "grey";
+
+    //var min = Infinity,
+    //    max = -Infinity;
 
     <!--
     /append the svg object to the body of the page
@@ -87,6 +114,14 @@
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     -->
+
+    //setup the svg to draw the box plot into
+    var svg = d3.select("body").append("svg")
+        .attr("width", totalWidth)
+        .attr("height", totalHeight)
+        .attr("g")
+        .attr("transform", "translate(" + (margin.left - barWidth) + "," + margin.top + ")");
+
     //initial the box
     var chart = d3.box()
         .whiskers(tenths(1.5))
