@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-    <!--load d3.js-->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="box.js"></script>
-
     <!-- title for d3 -->
     <title>Data set for trading</title>
 
@@ -15,68 +11,37 @@
 
         /* body attributes */
         body {
-            margin: 0;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            font: 12px Arial;
         }
 
-        /* text attributes */
-        text {
-            font-family: "Helvetica Neue";
-            color: black;
-            font-size: 1.2px;
-
-        }
-
-        /* box plot */
-        .box {
-            font: 10px sans-serif;
-        }
-
-        .box line,
-        .box rect,
-        .box circle {
-            fill: cadetblue;
-            stroke: black;
-            stroke-width: 1.5px;
-        }
-
-        .box .center {
-            stroke-dasharray: 2,3;
-        }
-
-        .box .outlier {
+        /* path attributes */
+        path {
+            stroke: cornflowerblue;
+            stroke-width: 2;
             fill: none;
-            stroke: black;
+        }
+
+        /* div tooltip*/
+        div.tooltip {
+            color: white;
+            position: absolute;
+            text-align: center;
+            width: 60px;
+            height: 28px;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: rgba(0,0,0,.8);
+            border: 2px solid black;
+            pointer-events: none;
         }
 
         /* axis attributes */
-        .axis {
-            font: 12px "Helvetica Neue";
-        }
 
         .axis path,
         .axis line {
             fill: none;
-            stroke: black;
-            shape-rendering: crispEdges;
-        }
-
-        .x.axis path,
-        .x.axis line {
-            fill: none;
-            stroke: black;
-            shape-rendering: crispEdges;
-        }
-
-        .y.axis path,
-        .y.axis line {
-            fill: none;
-            stroke: black;
+            stroke: gray;
+            stroke-width: 1;
             shape-rendering: crispEdges;
         }
     </style>
@@ -85,6 +50,13 @@
 
 <body>
 <div id="data"></div>
+
+<!--load d3.js-->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+
+
+
 <script>
 
     //set the size and color for the chart
@@ -102,7 +74,10 @@
     var medianLineColor = "black";
     var axisColor = "grey";
 
-    
+
+    const parseDate = d3.timeParse('%d-%b-%y');
+    const formatTime = d3.timeFormat('%e %B');
+
 
     //setup the svg to draw the box plot into
     var svg = d3.select("body").append("svg")
