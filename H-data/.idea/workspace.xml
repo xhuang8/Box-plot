@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1e984416-673c-43d4-a0ae-bdaf51602bc2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/box.js" beforeDir="false" afterPath="$PROJECT_DIR$/Js/box.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,8 +34,8 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Src/box.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Js/box.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
               <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
@@ -60,13 +61,6 @@
           </provider>
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/d3/d3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3158" />
           </provider>
         </entry>
       </file>
@@ -96,8 +90,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="218" />
-    <option name="y" value="106" />
+    <option name="x" value="128" />
+    <option name="y" value="27" />
     <option name="width" value="1440" />
     <option name="height" value="821" />
   </component>
@@ -114,17 +108,6 @@
               <item name="H-data" type="b2602c69:ProjectViewProjectNode" />
               <item name="H-data" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="H-data" type="b2602c69:ProjectViewProjectNode" />
-              <item name="H-data" type="462c0819:PsiDirectoryNode" />
-              <item name="d3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="H-data" type="b2602c69:ProjectViewProjectNode" />
-              <item name="H-data" type="462c0819:PsiDirectoryNode" />
-              <item name="d3" type="462c0819:PsiDirectoryNode" />
-              <item name="d3.js" type="620a8d5e:NestingTreeNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -136,6 +119,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -147,6 +131,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Js" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/Src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/d3data" />
@@ -176,16 +162,15 @@
       <updated>1559344927117</updated>
       <workItem from="1559344929401" duration="27564000" />
       <workItem from="1559890044542" duration="1000" />
-      <workItem from="1559938184430" duration="12667000" />
+      <workItem from="1559938184430" duration="13156000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40232000" />
+    <option name="totallyTimeSpent" value="40721000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="528" y="90" width="1440" height="821" extended-state="0" />
-    <editor active="true" />
+    <frame x="177" y="80" width="1440" height="821" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24242425" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -210,36 +195,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/d3/CHANGES.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/d3/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-104" />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/d3/d3.min.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/d3/LICENSE">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/d3/API.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/d3data">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -315,10 +270,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Src/box.js">
+    <entry file="file://$PROJECT_DIR$/lib/API.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/CHANGES.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/LICENSE">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/d3.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/d3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+        <state relative-caret-position="382">
+          <caret line="236" column="55" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -344,9 +329,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/d3/d3.js">
+    <entry file="file://$PROJECT_DIR$/Js/box.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3158" />
+        <state relative-caret-position="172">
+          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+        </state>
       </provider>
     </entry>
   </component>
