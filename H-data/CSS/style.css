@@ -1,0 +1,35 @@
+/* body attributes */
+body {
+    font: 12px Arial;
+}
+
+/* path attributes */
+path {
+    stroke: cornflowerblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* div tooltip*/
+div.tooltip {
+    color: white;
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: rgba(0,0,0,.8);
+    border: 2px solid black;
+    pointer-events: none;
+}
+
+/* axis attributes */
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: gray;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
