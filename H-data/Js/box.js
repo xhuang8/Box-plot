@@ -1,5 +1,7 @@
-(function () {
-    d3.box = function () {
+(function() {
+
+// Inspired by http://informationandvisualization.de/blog/box-plot
+    d3.box = function() {
         var width = 1,
             height = 1,
             duration = 0,
@@ -8,18 +10,20 @@
             whiskers = boxWhiskers,
             quartiles = boxQuartiles,
             showLabels = true, // whether or not to show text labels
-            numBars = 6,
+            numBars = 4,
             curBar = 1,
             tickFormat = null;
 
+        // For each small multiple…
         function box(g) {
             g.each(function(data, i) {
                 //d = d.map(value).sort(d3.ascending);
                 //var boxIndex = data[0];
                 //var boxIndex = 1;
-
                 var d = data[1].sort(d3.ascending);
 
+                // console.log(boxIndex);
+                //console.log(d);
 
                 var g = d3.select(this),
                     n = d.length,
@@ -29,16 +33,12 @@
                 // Compute quartiles. Must return exactly 3 elements.
                 var quartileData = d.quartiles = quartiles(d);
 
-//       console.log(quartileData);
-
                 // Compute whiskers. Must return exactly 2 elements, or null.
                 var whiskerIndices = whiskers && whiskers.call(this, d, i),
-                    whiskerData = whiskerIndices && whiskerIndices.map(function(i) {
+                    whiskerData = whiskerIndices && whiskerIndices.map(function(i) { return d[i]; });
 
-                        console.log(d);
-                        return d[i];
-                    });
-
+                // Compute outliers. If no whiskers are specified, all data are "outliers".
+                // We compute the outliers as indices, so that we can join across transitions!
                 var outlierIndices = whiskerIndices
                     ? d3.range(0, whiskerIndices[0]).concat(d3.range(whiskerIndices[1] + 1, n))
                     : d3.range(n);
@@ -99,7 +99,7 @@
 
                 box.enter().append("rect")
                     .attr("class", "box")
-                    .attr("x", 10)
+                    .attr("x", 0)
                     .attr("y", function(d) { return x0(d[2]); })
                     .attr("width", width)
                     .attr("height", function(d) { return x0(d[0]) - x0(d[2]); })
@@ -169,11 +169,10 @@
 
                 outlier.enter().insert("circle", "text")
                     .attr("class", "outlier")
-                    .attr("r", 3)
+                    .attr("r", 5)
                     .attr("cx", width / 2)
                     .attr("cy", function(i) { return x0(d[i]); })
                     .style("opacity", 1e-6)
-                    .style("fill", "orange")
                     .transition()
                     .duration(duration)
                     .attr("cy", function(i) { return x1(d[i]); })
