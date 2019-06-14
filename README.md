@@ -1,10 +1,12 @@
 ## week-3 task
 
-*** using the D3.js to build the box plot
+** using the D3.js to build the box plot
 
 ## Notes
 
-**some challenges encountered while build the box plot.
+**some challenges encountered while build the box plot.\
+  when I finish the html, the web can't show the data in the web page.
+  reason: the chrome can't read the local file.
 
 
 ## License
