@@ -1,35 +1,46 @@
-/* body attributes */
+/* style body */
 body {
-    font: 12px Arial;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* path attributes */
-path {
-    stroke: cornflowerblue;
-    stroke-width: 2;
+
+/* style box */
+.box {
+    font: 10px sans-serif;
+}
+
+.box line,
+.box rect,
+.box circle {
+    fill: chocolate;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.box .center {
+    stroke-dasharray: 3, 3;
+}
+
+.box .outlier {
     fill: none;
+    stroke: black;
 }
 
-/* div tooltip*/
-div.tooltip {
-    color: white;
-    position: absolute;
-    text-align: center;
-    width: 60px;
-    height: 28px;
-    padding: 2px;
+
+/* style axis */
+.axis {
     font: 12px sans-serif;
-    background: rgba(0,0,0,.8);
-    border: 2px solid black;
-    pointer-events: none;
 }
-
-/* axis attributes */
 
 .axis path,
 .axis line {
     fill: none;
-    stroke: gray;
-    stroke-width: 1;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    fill: none;
+    stroke: black;
     shape-rendering: crispEdges;
 }
