@@ -2,9 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <title>Box plot</title>
+    <link href="CSS/style.css" rel="stylesheet" type="text/css" />
+
+    <!--load d3.js-->
+    <script src="https://d3js.org/d3.v5.min.js"></script></head>
+    <script src="Js/box.js"></script>
 <body>
+
+    <script>
+        var labels = true; // show the text labels beside individual boxplots?
+
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        var margin = {top: 30, right: 50, bottom: 100, left: 100};
+        var width = w - margin.left - margin.right - 50;
+        var height = h - margin.top - margin.bottom - 50;
+
+        var min = Infinity,
+            max = -Infinity;
+
+        // parse in the data
+        d3.csv("Data/data.csv", function(error, csv) {
+
+            var data = [];
+
+            var i = 0;
+            csv.forEach(function(x) {
+                var v1 = Math.floor(x.open),
+                    v2 = Math.floor(x.high),
+                    v3 = Math.floor(x.low),
+                    v4 = Math.floor(x.close);
+
+                var x = x.date;
+                // add more variables if your csv file has more columns
+
+                var rowMax = Math.max(v1, Math.max(v2, Math.max(v3,v4)));
+                var rowMin = Math.min(v1, Math.min(v2, Math.min(v3,v4)));
+
+                data[i] = [];
+                data[i][0] = x;
+                data[i][1] = [v1,v2,v3,v4];
+                i++;
+                if (rowMax > max) max = rowMax;
+                if (rowMin < min) min = rowMin;
+            });
+
+            var chart = d3.box()
+                .whiskers(iqr(1.5))
+                .height(height)
+                .domain([min, max])
+                .showLabels(labels);
+
+            var svg = d3.select("body").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("class", "box")
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            // the x-axis
+            var x = d3.scale.ordinal()
+                .domain( data.map(function(d) { console.log(d); return d[0] } ) )
+                .rangeRoundBands([0 , width], 0.7, 0.3);
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+            // the y-axis
+            var y = d3.scale.linear()
+                .domain([min, max])
+                .range([height + margin.top, 0 + margin.top]);
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+            // draw the boxplots
+            svg.selectAll(".box")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d) { return "translate(" +  x(d[0])  + "," + margin.top + ")"; } )
+                .call(chart.width(x.rangeBand()));
+
+
+            // add a title
+            svg.append("text")
+                .attr("x", (width / 2))
+                .attr("y", 0 + (margin.top / 2))
+                .attr("text-anchor", "middle")
+                .style("font-size", "18px")
+                //.style("text-decoration", "underline")
+                .text("BoxPlot");
+
+            // draw y axis
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text") // and text1
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .style("font-size", "10px")
+                .text("价格（元）");  // Y坐标单位
+
+            // draw x axis
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + (height  + margin.top + 10) + ")")
+                .call(xAxis)
+                .attr("x", (width / 2) )
+                .attr("y",  10 )
+                .selectAll("text")
+                .style("font-size", "10px")
+                .style("text-anchor", "start")
+                .attr("transform", "rotate(30 -10 10)");
+
+        });
+
+        // Returns a function to compute the interquartile range.
+        function iqr(k) {
+            return function(d, i) {
+                var q1 = d.quartiles[0],
+                    q3 = d.quartiles[2],
+                    iqr = (q3 - q1) * k,
+                    i = -1,
+                    j = d.length;
+                while (d[++i] < q1 - iqr);
+                while (d[--j] > q3 + iqr);
+                return [i, j];
+            };
+        }
+
+    </script>
+
+
 
 </body>
 </html>
