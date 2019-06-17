@@ -4,10 +4,16 @@
 
 ## Notes
 
-**some challenges encountered while build the box plot.\
+1. some challenges encountered while build the box plot.
   when I finish the html, the web can't show the data in the web page.
   reason: the chrome can't read the local file.
 
+2. IDE use: 
+Intellij IDEA 
+web server: tomcat
+
+## boxplot 
+/Users/xiaoqianhuang/Desktop/Screen Shot 2019-06-16 at 9.22.21 PM.png
 
 ## License
 
