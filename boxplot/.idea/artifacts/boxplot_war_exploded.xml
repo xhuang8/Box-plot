@@ -2,12 +2,14 @@
   <artifact type="exploded-war" name="boxplot:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/boxplot_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="boxplot/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="boxplot" />
+          <element id="library" level="application" name="d3.v5" />
         </element>
       </element>
+      <element id="library" level="project" name="lib" />
+      <element id="javaee-facet-resources" facet="boxplot/web/Web" />
     </root>
   </artifact>
 </component>

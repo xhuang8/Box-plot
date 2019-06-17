@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Box plot</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8">
+<title>Box Plot</title>
 
-    <!--load d3.js-->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="js/box.js"></script>
-</head>
-
-
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/box.js"></script>
 <body>
-<script>
-    var labels = true; // show the text labels beside individual boxplots?
 
+<script>
+    var labels = true;
+
+    // calculate screen width and height
     var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
@@ -25,13 +21,13 @@
     var min = Infinity,
         max = -Infinity;
 
-    // parse in the data
-    d3.csv("Data/data.csv", function(error, csv) {
+    // load the csv data
+    d3.csv("data/AAPL.csv", function(error, csv) {
 
         var data = [];
-
         var i = 0;
-        csv.forEach( function(x) {
+        csv.forEach(function(x) {
+
             var v1 = Math.floor(x.open),
                 v2 = Math.floor(x.high),
                 v3 = Math.floor(x.low),
@@ -39,6 +35,7 @@
 
             var x = x.date;
 
+            // calculate max and min
             var rowMax = Math.max(v1, Math.max(v2, Math.max(v3,v4)));
             var rowMin = Math.min(v1, Math.min(v2, Math.min(v3,v4)));
 
@@ -48,10 +45,12 @@
             i++;
             if (rowMax > max) max = rowMax;
             if (rowMin < min) min = rowMin;
+
+            //console.log(data);
         });
 
         var chart = d3.box()
-            .whiskers(iqr(1.5))
+            .whiskers(interquartileRange(1.5))
             .height(height)
             .domain([min, max])
             .showLabels(labels);
@@ -81,34 +80,12 @@
             .scale(y)
             .orient("left");
 
-        // draw the boxplots
+        // draw the boxPlot
         svg.selectAll(".box")
             .data(data)
             .enter().append("g")
             .attr("transform", function(d) { return "translate(" +  x(d[0])  + "," + margin.top + ")"; } )
             .call(chart.width(x.rangeBand()));
-
-
-        // add a title
-        svg.append("text")
-            .attr("x", (width / 2))
-            .attr("y", 0 + (margin.top / 2))
-            .attr("text-anchor", "middle")
-            .style("font-size", "18px")
-            //.style("text-decoration", "underline")
-            .text("BoxPlot");
-
-        // draw y axis
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append("text") // and text1
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .style("font-size", "10px")
-            .text("price（dollar）");  // Y axis units
 
         // draw x axis
         svg.append("g")
@@ -122,11 +99,29 @@
             .style("text-anchor", "start")
             .attr("transform", "rotate(30 -10 10)");
 
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .style("font-size", "10px")
+            .text("price (dollar)");  // Y units
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 + (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "18px")
+            .text("Box Plot");
+
     });
 
-    // Returns a function to compute the interquartile range.
-    function iqr(k) {
-        return function(d, i) {
+    // compute the interquartile range.
+    function interquartileRange(k) {
+        var result =  function(d, i) {
             var q1 = d.quartiles[0],
                 q3 = d.quartiles[2],
                 iqr = (q3 - q1) * k,
@@ -136,8 +131,8 @@
             while (d[--j] > q3 + iqr);
             return [i, j];
         };
+
+        return result;
     }
 
 </script>
-</body>
-</html>

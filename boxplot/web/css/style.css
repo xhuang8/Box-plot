@@ -1,29 +1,31 @@
-/* style body */
+/* style body*/
+
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 
 /* style box */
+.box line,
+.box rect,
+.box circle {
+    stroke: #000;
+    fill: orange;
+    stroke-width: 1px;
+}
+
 .box {
     font: 10px sans-serif;
 }
 
-.box line,
-.box rect,
-.box circle {
-    fill: chocolate;
-    stroke: black;
-    stroke-width: 1px;
-}
 
 .box .center {
-    stroke-dasharray: 3, 3;
+    stroke-dasharray: 3,3;
 }
 
 .box .outlier {
     fill: none;
-    stroke: black;
+    stroke: #000;
 }
 
 
@@ -35,12 +37,12 @@ body {
 .axis path,
 .axis line {
     fill: none;
-    stroke: black;
+    stroke: #000;
     shape-rendering: crispEdges;
 }
 
 .x.axis path {
     fill: none;
-    stroke: black;
+    stroke: #000;
     shape-rendering: crispEdges;
 }

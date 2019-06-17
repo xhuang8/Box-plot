@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="boxplot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/boxplot_jar</output-path>
+    <root id="archive" name="boxplot.jar">
+      <element id="module-output" name="boxplot" />
+      <element id="library" level="application" name="d3.v5" />
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

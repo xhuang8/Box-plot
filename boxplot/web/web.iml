@@ -19,18 +19,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="d3.v5" level="application" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/web/WEB-INF/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="d3.v3" level="application" />
   </component>
 </module>
