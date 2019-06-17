@@ -13,7 +13,7 @@ Intellij IDEA
 web server: tomcat
 
 ## boxplot 
-/Users/xiaoqianhuang/Desktop/Screen Shot 2019-06-16 at 9.22.21 PM.png
+<img src="https://imgur.com/xPFjLaH" />
 
 ## License
 
